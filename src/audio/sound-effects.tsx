@@ -31,7 +31,20 @@ export type SfxName =
 	| 'qr-beep'
 	| 'block-thud'
 	| 'logo-shimmer'
-	| 'footsteps-cartoon';
+	| 'footsteps-cartoon'
+	| 'mg-whoosh'
+	| 'mg-transition'
+	| 'mg-tick'
+	| 'mg-impact'
+	| 'mg-riser'
+	| 'mg-glitch'
+	| 'mg-pop'
+	| 'mg-sparkle'
+	| 'mg-type'
+	| 'mg-data'
+	| 'mg-confirm'
+	| 'mg-coin'
+	| 'mg-bass-drop';
 
 /** Mixed under the voice so effects add punch without masking words. */
 const SFX_VOLUME = 0.45;

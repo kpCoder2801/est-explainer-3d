@@ -22,7 +22,7 @@ export const ArseLogoShape: React.FC<{spin?: number}> = ({spin = 0}) => (
 	</g>
 );
 
-const ArseMolecule: React.FC<{spin: number}> = ({spin}) => (
+export const ArseMolecule: React.FC<{spin: number}> = ({spin}) => (
 	<g>
 		<g transform={`rotate(${spin} 125 133)`}>
 			{ARSE_MOLECULE_PATHS.map((d) => (

@@ -2,7 +2,7 @@ import {Audio} from '@remotion/media';
 import React from 'react';
 import {interpolate, staticFile, useVideoConfig} from 'remotion';
 
-const MUSIC_FILE = 'music/estable-explainer-bed.mp3';
+const DEFAULT_MUSIC = 'music/estable-explainer-bed.mp3';
 const FULL = 0.3; // music level between lines
 const DUCKED = 0.11; // music level under voice
 const DUCK_RAMP = 0.25; // seconds to dip/recover around a line
@@ -11,12 +11,12 @@ const DUCK_RAMP = 0.25; // seconds to dip/recover around a line
  * Background bed for a whole cut: fades in/out at the edges and ducks under every
  * speech interval (seconds, in the cut's timeline) so the voices stay clear.
  */
-export const BackgroundMusic: React.FC<{speech: Array<[number, number]>; durationInFrames: number}> = ({speech, durationInFrames}) => {
+export const BackgroundMusic: React.FC<{speech: Array<[number, number]>; durationInFrames: number; file?: string}> = ({speech, durationInFrames, file = DEFAULT_MUSIC}) => {
 	const {fps} = useVideoConfig();
 	const end = durationInFrames / fps;
 	return (
 		<Audio
-			src={staticFile(MUSIC_FILE)}
+			src={staticFile(file)}
 			volume={(f) => {
 				const t = f / fps;
 				const edge = Math.min(

@@ -1,6 +1,7 @@
 // Generates the sound-effect library with ElevenLabs Sound Effects into public/sfx/.
 // Existing files are kept, so re-running only fills in new entries.
-import {existsSync, mkdirSync, writeFileSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {existsSync, mkdirSync, renameSync, writeFileSync} from 'node:fs';
 import {creditsUsed, elevenlabs} from './elevenlabs-client.mjs';
 
 /** name → [prompt, seconds]. Names are referenced from src/audio/sound-effects.ts. */
@@ -33,7 +34,38 @@ export const SFX = {
 	'block-thud': ['Solid wooden block placed down with a satisfying chunky thud', 0.5],
 	'logo-shimmer': ['Elegant rising shimmer and soft chime for a logo reveal', 1.8],
 	'footsteps-cartoon': ['Light bouncy cartoon footsteps, quick little steps', 1.2],
+	// Motion-graphics cut: crisp, digital, premium tech-promo sound design.
+	'mg-whoosh': ['Fast clean airy whoosh for a motion graphics element flying past', 0.7],
+	'mg-transition': ['Big wide cinematic swoosh transition with a subtle reverse cymbal, modern tech promo', 1.1],
+	'mg-tick': ['Soft precise UI click tick', 0.5],
+	'mg-impact': ['Short deep cinematic impact hit with sub bass, punchy and clean', 0.9],
+	'mg-riser': ['Short rising synth riser building tension into a hit', 1.5],
+	'mg-glitch': ['Quick digital glitch stutter, data corruption blip', 0.6],
+	'mg-pop': ['Clean bubbly synth pop, modern UI', 0.5],
+	'mg-sparkle': ['Bright digital sparkle shimmer, magical tech', 1.2],
+	'mg-type': ['Rapid soft keyboard typing ticks for kinetic typography', 1.0],
+	'mg-data': ['Quick sequence of soft digital data beeps, futuristic interface', 0.9],
+	'mg-confirm': ['Satisfying digital success confirm chime, modern fintech app', 0.8],
+	'mg-coin': ['Bright digital coin chime with a glassy shimmer', 0.7],
+	'mg-bass-drop': ['Short deep sub bass drop boom for a logo reveal', 1.2],
 };
+
+/**
+ * Motion-graphics effects come back from the API at wildly different levels (a near-silent
+ * impact next to a full-scale bass drop), so they are loudness-normalised to one target.
+ * The v1 effects are left as generated so the approved v1 mix does not change.
+ */
+const normalize = (path) => {
+	const tmp = `${path}.norm.mp3`;
+	execFileSync('ffmpeg', ['-y', '-v', 'error', '-i', path, '-af', 'loudnorm=I=-20:TP=-4:LRA=11', '-ar', '44100', '-c:a', 'libmp3lame', '-q:a', '2', tmp]);
+	renameSync(tmp, path);
+};
+
+if (process.argv.includes('--normalize-mg')) {
+	for (const name of Object.keys(SFX).filter((n) => n.startsWith('mg-'))) normalize(new URL(`../public/sfx/${name}.mp3`, import.meta.url).pathname);
+	console.log('normalised mg-* effects');
+	process.exit(0);
+}
 
 const dir = new URL('../public/sfx/', import.meta.url);
 mkdirSync(dir, {recursive: true});
@@ -47,6 +79,7 @@ for (const [name, [text, seconds]] of Object.entries(SFX)) {
 		body: {text, duration_seconds: seconds, prompt_influence: 0.5},
 	});
 	writeFileSync(file, audio);
+	if (name.startsWith('mg-')) normalize(file.pathname);
 	console.log(`${name}.mp3`);
 }
 const after = await creditsUsed();

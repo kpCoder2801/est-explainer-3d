@@ -1,53 +1,15 @@
 import React from 'react';
 import {colors} from '../brand/brand-tokens';
 import {blinkAmount, bodyMotion, MascotPose} from './shared/mascot-motion';
+import {BEAK_CELLS, BODY_CELLS, EYE_CELL, LEG_BACK, LEG_FRONT, NANDU_COLS, NANDU_ROWS, WING_CELLS} from './shared/nandu-pixel-map';
 
-/**
- * Nandu pixel map, hand-cleaned from assets/logos/nandu.png (≈33px cells in the source).
- * `#` body, `E` eye, `W` wing. Legs live in their own maps so they can step.
- */
-const BODY_ROWS = [
-	'..##........',
-	'##E##.......',
-	'..###.......',
-	'..#.........',
-	'.##.........',
-	'.##..####...',
-	'.##.######..',
-	'.######WW##.',
-	'.##.########',
-	'..#.####..##',
-	'...#.##....#',
-];
-const LEG_FRONT: Array<[number, number]> = [
-	[5, 12],
-	[5, 13],
-	[4, 14],
-	[3, 15],
-	[4, 15],
-];
-const LEG_BACK: Array<[number, number]> = [
-	[7, 11],
-	[8, 12],
-	[8, 13],
-	[7, 14],
-	[6, 15],
-	[7, 15],
-];
 const C = 10; // rig units per pixel
-const COLS = 12;
-const ROWS = 16;
+const COLS = NANDU_COLS;
+const ROWS = NANDU_ROWS;
 /** Pixel art moves on twos-and-threes: sample motion at 10fps and snap to half-pixels. */
 const STEP_FPS = 10;
 const snap = (v: number) => Math.round(v / (C / 2)) * (C / 2);
 
-const cellsOf = (ch: string) =>
-	BODY_ROWS.flatMap((row, y) => [...row].map((c, x) => (c === ch ? ([x, y] as [number, number]) : null)).filter(Boolean) as Array<[number, number]>);
-// The eye cell is body-coloured underneath the eye so the outline has no hole there.
-const BODY_CELLS = [...cellsOf('#'), ...cellsOf('E')];
-const [EYE_CELL] = cellsOf('E');
-const WING_CELLS = cellsOf('W');
-const BEAK_COLS = new Set(['0,1', '1,1']);
 
 const Px: React.FC<{x: number; y: number; fill: string; w?: number; h?: number}> = ({x, y, fill, w = 1, h = 1}) => (
 	// +0.4 overlap hides hairline seams between adjacent pixels when scaled.
@@ -132,7 +94,7 @@ export const NanduMascot: React.FC<{pose: MascotPose; height: number}> = ({pose,
 				)}
 				<PxGroup
 					cells={[
-						...toCells(BODY_CELLS.filter(([x, y]) => !(mouthOpen && BEAK_COLS.has(`${x},${y}`)))),
+						...toCells(BODY_CELLS.filter(([x, y]) => !(mouthOpen && BEAK_CELLS.has(`${x},${y}`)))),
 						...(mouthOpen ? [{x: 0, y: 0.55, w: 2, h: 0.55}] : []),
 					]}
 					fill={colors.nanduGold}

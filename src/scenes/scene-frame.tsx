@@ -1,6 +1,6 @@
 import React from 'react';
-import {Audio} from '@remotion/media';
-import {AbsoluteFill, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, useCurrentFrame, useVideoConfig} from 'remotion';
+import {SceneVoiceOver} from '../audio/scene-voice-over';
 import {BrandNetworkBackground} from '../components/brand-network-background';
 import {SceneCaptions} from '../components/scene-captions';
 import {timeScene} from '../storyboard/scene-timeline';
@@ -28,17 +28,9 @@ export const SceneFrame: React.FC<{
 	backgroundReveal?: number;
 }> = ({sceneId, children, glowX, glowY, backgroundReveal}) => {
 	const {lines} = timeScene(sceneById(sceneId));
-	const {fps} = useVideoConfig();
 	return (
 		<AbsoluteFill>
-			{lines.map(
-				(l) =>
-					l.vo && (
-						<Sequence key={l.vo.file} from={Math.round(l.start * fps)} premountFor={fps}>
-							<Audio src={staticFile(l.vo.file)} />
-						</Sequence>
-					),
-			)}
+			<SceneVoiceOver lines={lines} />
 			<BrandNetworkBackground seed={sceneId} glowX={glowX} glowY={glowY} reveal={backgroundReveal} />
 			{children}
 			<SceneCaptions lines={lines} />
