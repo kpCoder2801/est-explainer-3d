@@ -1,0 +1,65 @@
+{
+  "estable": {
+    "description": "A warm, confident middle-aged male host with a neutral American accent. Friendly and charismatic, like a great keynote presenter, with a playful smile in his voice. Clear enunciation, upbeat conversational pace. Studio-quality recording.",
+    "text": "Psst, over here! Hi, I'm Estable. I'm a Tether portfolio company from El Salvador, founded by crypto builders from Bitfinex and Tether. We build the rails for digital money.",
+    "options": [
+      {
+        "file": "estable-option-1.mp3",
+        "generated_voice_id": "WNYwMTyQnypb1ZdosHHv",
+        "duration_secs": 10.450833333333334
+      },
+      {
+        "file": "estable-option-2.mp3",
+        "generated_voice_id": "9hLh9xoxU5ty1lW3DfZI",
+        "duration_secs": 10.894916666666667
+      },
+      {
+        "file": "estable-option-3.mp3",
+        "generated_voice_id": "hsfGGCaKDh7Pk46R6ku5",
+        "duration_secs": 10.21575
+      }
+    ]
+  },
+  "arse": {
+    "description": "A bright, upbeat young adult female voice with a slight Argentine Spanish accent speaking English. Bubbly, quick and charming, like a lively cartoon character with a warm smile. Perfect audio quality.",
+    "text": "Hi! I'm ARSe, the Argentine peso stablecoin. Backed one to one by pesos, with reserves you can verify. Send money across borders, split a dinner, or pay at a shop.",
+    "options": [
+      {
+        "file": "arse-option-1.mp3",
+        "generated_voice_id": "cg4W45j7F3nJ9MssQiXr",
+        "duration_secs": 10.476958333333334
+      },
+      {
+        "file": "arse-option-2.mp3",
+        "generated_voice_id": "VgEoMaCaV9lnnA4xhBgV",
+        "duration_secs": 11.312875
+      },
+      {
+        "file": "arse-option-3.mp3",
+        "generated_voice_id": "lLPlXvyDox73sdvL3OKi",
+        "duration_secs": 10.816541666666666
+      }
+    ]
+  },
+  "nandu": {
+    "description": "A young, energetic and playful male cartoon character voice, slightly high-pitched and quirky, fast and bouncy delivery like a retro video game hero. American accent. Perfect audio quality.",
+    "text": "Coming through! I'm Nandu, a self-custody wallet on Polygon. Your keys stay on your device. Your crypto, your wallet, your control.",
+    "options": [
+      {
+        "file": "nandu-option-1.mp3",
+        "generated_voice_id": "MPByqJqc3PWMjslW1YIW",
+        "duration_secs": 7.943083333333333
+      },
+      {
+        "file": "nandu-option-2.mp3",
+        "generated_voice_id": "CHEpK0NLOxuulwkngKjS",
+        "duration_secs": 10.398583333333333
+      },
+      {
+        "file": "nandu-option-3.mp3",
+        "generated_voice_id": "6fFKy3lvaubWlJlYMgOr",
+        "duration_secs": 8.961875
+      }
+    ]
+  }
+}
