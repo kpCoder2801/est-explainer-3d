@@ -7,9 +7,9 @@ import {CartoonMouth, RoundEye, VectorMascot, VectorRigSpec} from './shared/vect
 /**
  * The Estable mark (assets/logos/estable.png, 1024 units) traced as one polygon:
  * outer triangle with the inward spiral channel. Round joins on a same-colour
- * stroke reproduce the logo's softened corners.
+ * stroke reproduce the logo's softened corners. The 3D rig extrudes the same vertices.
  */
-const ESTABLE_LOGO_POINTS = [
+export const ESTABLE_LOGO_VERTICES: Array<[number, number]> = [
 	[512, 0],
 	[912, 775],
 	[892, 805],
@@ -28,9 +28,8 @@ const ESTABLE_LOGO_POINTS = [
 	[1000, 1024],
 	[20, 1024],
 	[0, 995],
-]
-	.map(([x, y]) => `${x},${y}`)
-	.join(' ');
+];
+const ESTABLE_LOGO_POINTS = ESTABLE_LOGO_VERTICES.map(([x, y]) => `${x},${y}`).join(' ');
 
 export const EstableLogoShape: React.FC<{fill?: string}> = ({fill = colors.teal}) => (
 	<polygon points={ESTABLE_LOGO_POINTS} fill={fill} stroke={fill} strokeWidth={34} strokeLinejoin="round" />
